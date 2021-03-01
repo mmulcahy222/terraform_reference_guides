@@ -4,9 +4,9 @@ I made myself three Terraform user guides for three clouds of Microsoft Azure & 
 
 The Terraform command syntax for every service has been collated all in one page for one easy-to-use reference guide. 
 
-https://mmulcahy222.github.io/amazon_aws.html
-https://mmulcahy222.github.io/microsoft_azure.html
-https://mmulcahy222.github.io/google_cloud.html
+[Amazon AWS Terraform Guide](https://mmulcahy222.github.io/amazon_aws.html)
+[Microsoft Azure Terraform Guide](https://mmulcahy222.github.io/microsoft_azure.html)
+[Google Cloud Terraform Guide](https://mmulcahy222.github.io/google_cloud.html)
 
 ![](images/image_terraform.png)
 
