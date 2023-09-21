@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terraform Guide</title>
+    <style>
+
+
+        @font-face {
+          font-family: 'dos'; /* You can choose any name you like */
+          src: url('dos.ttf') format('truetype'); /* Replace 'path/to' with the actual file path */
+          /* You can also include other font formats like woff, woff2, eot for better browser compatibility */
+        }
+
+        *
+        {
+            /*overflow-x: hidden;*/
+        }
+
+        html, body, #container {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        div
+        {
+            word-wrap: break-word;
+        }
+
+        code
+        {
+
+        }
+
+        li
+        {
+            text-decoration-style: none;
+            list-style-type: none;
+            margin: 0;
+        }
+
+        body {
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            font-family: 'dos';
+        }
+
+        /* Style the link (a) for all states */
+        a,
+        a:visited,
+        a:hover,
+        a:active {
+            color: white; /* Set the text color to white */
+            text-decoration: none; /* Remove underline and other text decorations */
+            cursor: pointer;
+        }
+
+        h1, h2
+        {
+            display: none;
+        }
+
+        .scrollable {
+            overflow-y: auto;
+            color: white;
+            scrollbar-width: thin;
+            scrollbar-color: #202020 #000;
+            text-decoration: none;
+        }
+
+
+        #container {
+            display: flex;
+            color: #808080; /* DOS Gray Color */
+        }
+
+        #left-column {
+            width: 300px;
+            height: 100%;
+            padding: 10px;
+            min-height: 600px;
+            max-height: 100%;
+            overflow-x: hidden;
+        }
+
+        #left-column ul
+        {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        #right-column {
+            width: 75%;
+        }
+
+        #right-column div
+        {
+          overflow-wrap: break-word;
+          word-wrap: break-word;
+          hyphens: auto;
+          white-space: normal; 
+        }
+
+
+        /* Add this CSS to your existing styles */
+        #bottom-right {
+            height: 100%;
+            float: right;
+            box-sizing: border-box;          
+        }
+
+        /* Style for the top bar */
+        #resource-description {
+            color: #fff; /* Text color for the top bar */
+            height: 75px;
+        }
+
+        #resource-description p {
+            color: #fff; /* Text color for the top bar */
+            margin: 5px;
+        }
+
+        /* Style for the Terraform Example section */
+        #terraform-example {
+            width: 50%;
+            float: left;
+            color: #fff; /* Text color for the Terraform Example section */
+            padding: 5px; /* Adjust the padding as needed */
+            box-sizing: border-box;
+            height: 500px;
+        }
+
+        #right-column #terraform-example {
+            white-space: pre;
+        }
+        /* Style for the Terraform Description section */
+        #terraform-description {
+            width: 50%;
+            float: left;
+            color: #fff; /* Text color for the Terraform Description section */
+            padding: 5px; /* Adjust the padding as needed */
+            box-sizing: border-box;
+            height: 400px;
+            line-height: 20px;
+        }
+
+        #terraform-description li
+        {
+            margin-bottom: 20px;
+        }
+
+        #terraform-description code {
+            background-color: white;
+            font-weight: bold;
+            font-size: 15px;
+            color: black;
+            padding: 2px 5px;
+            margin: 2px 5px;
+        }
+
+        /* Customize scrollbar appearance for Webkit browsers (Chrome, Safari) */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #101010;
+        }
+
+        #left-column::-webkit-scrollbar-thumb {
+            background: #505050;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="left-column">
+        </div>
+        <!-- Within the existing HTML structure -->
+        <div id="right-column">
+            <div id="resource-description">
+               
+            </div>
+            <div id="terraform-example">
+              
+            </div>
+            <div id="terraform-description">
+              
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        // Function to retrieve the 'cloud' query parameter from the URL
+        function getCloudQueryParam() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('cloud');
+        }
+
+        function change(text)
+        {
+            if(text == undefined) return 'N/A';
+            return text;
+        }
+
+        function get_value_by_part(obj, keyPart, defaultValue = '') {
+          try {
+            const matchingKey = Object.keys(obj).find(key => key.includes(keyPart));
+            return matchingKey ? obj[matchingKey] : defaultValue;
+          } catch (error) {
+            return defaultValue;
+          }
+        }
+
+
+        // Function to handle resource link clicks
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('resource_link')) {
+                event.preventDefault(); // Prevent default link behavior
+                
+                // Get the value attribute from the clicked link
+                const fileValue = event.target.getAttribute('value');
+                
+                // Construct the URL for the AJAX request
+                const cloudQueryParam = getCloudQueryParam();
+                const apiUrl = `${cloudQueryParam}/json_html/${fileValue}.json`; // Update the path as needed
+                
+                // Make an AJAX request
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', apiUrl, true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        const jsonResponse = JSON.parse(xhr.responseText);
+                                        
+                        terraform_example = document.getElementById('terraform-example');
+                        terraform_description = document.getElementById('terraform-description');
+                        resource_description = document.getElementById('resource-description');
+
+
+                        // Update the HTML content based on the JSON response
+                        terraform_example.innerHTML = change(jsonResponse['example-usage']);
+                        terraform_description.innerHTML = change(get_value_by_part(jsonResponse,'argument'));
+                        resource_description.innerHTML = change(jsonResponse['description']);
+
+                      
+                        terraform_example.scrollTop = 0;
+                        terraform_description.scrollTop = 0;
+                        resource_description.scrollTop = 0;
+
+                        window.scrollTo({
+                            top: 0,
+                            behavior: "auto"
+                        });
+
+                    }
+                };
+                xhr.send();
+            }
+        });
+
+
+    //Make the leaf divs have scrollable features!
+    document.querySelectorAll('div').forEach((div) => {
+        if (div.querySelectorAll('div').length === 0) {
+            // If the div has no child divs (leaf div), add the "scrollable" class
+            div.classList.add('scrollable');
+        }
+    });
+
+
+
+
+
+
+    // left column!!!
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get the 'cloud' query parameter from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const cloud = urlParams.get("cloud");
+        const markdownSource = `${cloud}\\file_names.js`;
+
+        const fileList = document.getElementById("left-column");
+
+        // Create a function to fetch and display the file list
+        function displayFileList() {
+            fileList.innerHTML = ""; // Clear the list
+
+            // Fetch the list of files
+            fetch(markdownSource)
+                .then((response) => response.json())
+                .then((data) => {
+                    data.forEach((file) => {
+                        if (file !== '.' && file !== '..') {
+                            const parts = file.split('.');
+                            const filenameWithoutExtension = parts[0];
+                            const listItem = document.createElement("li");
+                            const link = document.createElement("a");
+                            link.href = "";
+                            link.classList.add("resource_link");
+                            link.setAttribute("value", filenameWithoutExtension);
+                            link.textContent = filenameWithoutExtension;
+                            listItem.appendChild(link);
+                            fileList.appendChild(listItem);
+                        }
+                    });
+                })
+                .catch((error) => {
+                    console.error("Error fetching file list:", error);
+                });
+
+        }
+
+        // Call the function to initially display the file list
+        displayFileList();
+    });
+
+
+    </script>
+</body>
+</html>
