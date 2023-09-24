@@ -263,7 +263,9 @@
                 <div class="header-item" id="prompt_1">Clipboard Prompt 1</div>
                 <div class="header-item" id="prompt_2">Clipboard Prompt 2</div>
                 <div class="header-item" id="prompt_3">Clipboard Prompt 3</div>
+                <div class="header-item" id="open_bard">&#x263A; Open Bard &#x263A;</div>
                 <div class="header-item" id="open_chatgpt">&#x263A; Open ChatGPT &#x263A;</div>
+
             </div>
             <div id="resource-description">
 
@@ -546,6 +548,10 @@
 
         document.getElementById('open_chatgpt').addEventListener('click', function (event) {
             window.open("https://chat.openai.com/", '_blank');
+        });
+
+        document.getElementById('open_bard').addEventListener('click', function (event) {
+            window.open("https://bard.google.com/", '_blank');
         });
 
 
