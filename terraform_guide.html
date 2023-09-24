@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terraform Guide</title>
     <style>
-
-
         @font-face {
-          font-family: 'dos'; /* You can choose any name you like */
-          src: url('dos.ttf') format('truetype'); /* Replace 'path/to' with the actual file path */
-          /* You can also include other font formats like woff, woff2, eot for better browser compatibility */
+            font-family: 'dos';
+            /* You can choose any name you like */
+            src: url('dos.ttf') format('truetype');
+            /* Replace 'path/to' with the actual file path */
+            /* You can also include other font formats like woff, woff2, eot for better browser compatibility */
         }
 
-        *
-        {
+        * {
             box-sizing: border-box;
         }
 
-        html, body, #container {
+        html,
+        body,
+        #container {
             height: 100%;
             margin: 0;
             padding: 0;
@@ -26,12 +28,12 @@
         }
 
         :root {
-          --right-column: #0000a0; /* Define a variable for scrollbar background color */
+            --right-column: #0000a0;
+            /* Define a variable for scrollbar background color */
         }
 
 
-        li
-        {
+        li {
             text-decoration-style: none;
             list-style-type: none;
             margin: 0;
@@ -50,13 +52,15 @@
         a:visited,
         a:hover,
         a:active {
-            color: white; /* Set the text color to white */
-            text-decoration: none; /* Remove underline and other text decorations */
+            color: white;
+            /* Set the text color to white */
+            text-decoration: none;
+            /* Remove underline and other text decorations */
             cursor: pointer;
         }
 
-        h1, h2
-        {
+        h1,
+        h2 {
             display: none;
         }
 
@@ -70,7 +74,8 @@
 
 
         #container {
-            color: #808080; /* DOS Gray Color */
+            color: #808080;
+            /* DOS Gray Color */
         }
 
         #left-column {
@@ -81,8 +86,7 @@
 
         }
 
-        #left-column ul
-        {
+        #left-column ul {
             list-style-type: none;
             margin: 0;
             padding: 0;
@@ -90,28 +94,30 @@
 
 
         /* Set the right column to a flex container with column direction */
-        #right-column {       
-            width: 80%;    
+        #right-column {
+            width: 80%;
             float: left;
             background-color: #0000a0;
         }
 
-     
+
 
         /* Add this CSS to your existing styles */
         #bottom-right {
             height: 100%;
             float: right;
-            box-sizing: border-box;          
+            box-sizing: border-box;
         }
 
         /* Style for the header */
-       /* Style for the header */
+        /* Style for the header */
         #header {
             background-color: #c0c0c0;
-            display: table; /* Use table layout */
+            display: table;
+            /* Use table layout */
             width: 100%;
-            table-layout: fixed; /* Fix the table layout */
+            table-layout: fixed;
+            /* Fix the table layout */
             position: sticky;
             top: 0;
             cursor: pointer;
@@ -120,15 +126,16 @@
         .header-item {
             color: #0000a0;
             height: 5vh;
-            display: table-cell; /* Use table-cell layout */
-            vertical-align: middle; /* Vertically center content */
+            display: table-cell;
+            /* Use table-cell layout */
+            vertical-align: middle;
+            /* Vertically center content */
             text-align: center;
             overflow: hidden;
         }
 
 
-        div
-        {
+        div {
             overflow-y: auto;
             overflow-x: auto;
         }
@@ -138,43 +145,43 @@
             color: #fff;
             padding: 5px;
             box-sizing: border-box;
-            height: 10vh; 
+            height: 10vh;
             width: 100%;
         }
 
 
         #resource-description p {
-            color: #fff; /* Text color for the top bar */
+            color: #fff;
+            /* Text color for the top bar */
             margin: 5px;
         }
 
 
         .columns {
-          display: flex;
-          height: 75vh;
-          /* Fill the remaining space after the header and resource-description */
+            display: flex;
+            height: 75vh;
+            /* Fill the remaining space after the header and resource-description */
         }
 
-        .outer-div
-        {
+        .outer-div {
             flex: 1;
             padding: 20px;
         }
 
 
-       /* Style for the Terraform sections */
+        /* Style for the Terraform sections */
         #terraform-example,
         #terraform-description {
             color: #fff;
             padding: 10px;
             box-sizing: border-box;
             width: 100%;
-            outline:double;
-            
-            outline-offset: 0px;    
+            outline: double;
+
+            outline-offset: 0px;
         }
 
-     
+
 
 
         #terraform-example code {
@@ -184,14 +191,15 @@
         #right-column #terraform-example {
             white-space: pre;
         }
+
         /* Style for the Terraform Description section */
         #terraform-description {
-            color: #fff; /* Text color for the Terraform Description section */
+            color: #fff;
+            /* Text color for the Terraform Description section */
             line-height: 20px;
         }
 
-        #terraform-description li
-        {
+        #terraform-description li {
             margin-bottom: 20px;
         }
 
@@ -204,7 +212,8 @@
         /* Style for the footer */
         #footer {
             background-color: #c0c0c0;
-            height: 10vh; /* 10% of the container height for the footer */
+            height: 10vh;
+            /* 10% of the container height for the footer */
             position: sticky;
             bottom: 0;
             width: 100%;
@@ -228,6 +237,7 @@
         }
     </style>
 </head>
+
 <body>
     <div id="container">
         <div id="left-column">
@@ -235,17 +245,18 @@
         <!-- Within the existing HTML structure -->
         <div id="right-column">
             <div id="header">
-               <div class="header-item" id="active_resource_name_display">Name</div>
-               <div class="header-item" id="left_arrow">&#x2190;</div>
-               <div class="header-item" id="right_arrow">&#x2192;</div>
-               <div class="header-item" id="terraform_registry_page">Terraform Registry Page</div>
-               <div class="header-item" id="search_simple">Google Simple</div>
-               <div class="header-item" id="search_advanced">Google Advanced</div>
-               <div class="header-item" id="ai">AI (Prompt In Clipboard)</div>
-               <div class="header-item" id="open_chatgpt">&#x263A; Open ChatGPT &#x263A;</div>
+                <div class="header-item" id="active_resource_name_display">Name</div>
+                <div class="header-item" id="left_arrow">&#x2190;</div>
+                <div class="header-item" id="right_arrow">&#x2192;</div>
+                <div class="header-item" id="terraform_registry_page">Terraform Registry Page</div>
+                <div class="header-item" id="search_simple">Google Simple</div>
+                <div class="header-item" id="search_advanced">Google Advanced</div>
+                <div class="header-item" id="ai_simple">Clipboard Prompt Simple</div>
+                <div class="header-item" id="ai_advanced">Clipboard Prompt Advanced</div>
+                <div class="header-item" id="open_chatgpt">&#x263A; Open ChatGPT &#x263A;</div>
             </div>
             <div id="resource-description">
-               
+
             </div>
             <div class="columns">
                 <div class="outer-div">
@@ -260,7 +271,7 @@
                 </div>
             </div>
             <div id="footer">
-                
+
             </div>
         </div>
 
@@ -276,20 +287,19 @@
 
 
 
-        function change(text)
-        {
-            if(text == undefined) return 'N/A';
-            text = text.trim().replace(/^(terraform|hcl)/,"").trim()
+        function change(text) {
+            if (text == undefined) return 'N/A';
+            text = text.trim().replace(/^(terraform|hcl)/, "").trim()
             return text;
         }
 
         function get_value_by_part(obj, keyPart, defaultValue = '') {
-          try {
-            const matchingKey = Object.keys(obj).find(key => key.includes(keyPart));
-            return matchingKey ? obj[matchingKey] : defaultValue;
-          } catch (error) {
-            return defaultValue;
-          }
+            try {
+                const matchingKey = Object.keys(obj).find(key => key.includes(keyPart));
+                return matchingKey ? obj[matchingKey] : defaultValue;
+            } catch (error) {
+                return defaultValue;
+            }
         }
 
 
@@ -333,47 +343,47 @@
         cloud = getCloudQueryParam();
 
         cloud_map = {
-            "ibm-cloud":"IBM Cloud",
-            "google":"Google Cloud",
-            "azurerm":"Microsoft Azure Cloud",
-            "aws":"Amazon AWS Cloud",
+            "ibm-cloud": "IBM Cloud",
+            "google": "Google Cloud",
+            "azurerm": "Microsoft Azure Cloud",
+            "aws": "Amazon AWS Cloud",
         }
 
         cloud_neat_name = cloud_map[cloud.toLowerCase()] ? cloud_map[cloud.toLowerCase()] : null;
 
         function getOtherClouds(excludedCloud) {
-          // Filter out the excluded cloud
-          const otherClouds = Object.values(cloud_map).filter((cloud) => cloud !== cloud_map[excludedCloud]);
-          // Join the filtered values into a comma-separated string
-          const result = otherClouds.join(', ');
-          return result;
+            // Filter out the excluded cloud
+            const otherClouds = Object.values(cloud_map).filter((cloud) => cloud !== cloud_map[excludedCloud]);
+            // Join the filtered values into a comma-separated string
+            const result = otherClouds.join(', ');
+            return result;
         }
 
 
-        
+
         // Function to handle the AJAX request and update content
         function handleResourceLinkClick(fileValue) {
             // Construct the URL for the AJAX request
             const cloudQueryParam = getCloudQueryParam();
             const apiUrl = `${cloudQueryParam}/json_html/${fileValue}.json`; // Update the path as needed
-            
+
             // Make an AJAX request
             const xhr = new XMLHttpRequest();
             xhr.open('GET', apiUrl, true);
-            xhr.onreadystatechange = function() {
+            xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     const jsonResponse = JSON.parse(xhr.responseText);
-                                    
+
                     terraform_example = document.getElementById('terraform-example');
                     terraform_description = document.getElementById('terraform-description');
                     resource_description = document.getElementById('resource-description');
                     active_resource_name_display = document.getElementById('active_resource_name_display');
 
                     // Update the HTML content based on the JSON response
-                    terraform_example.innerHTML = change(jsonResponse['example-usage']).replace('terraform','').replace('hcl','').replace(/(<\s*br\s*\/?\s*>)+/g, '<br />').trim();
+                    terraform_example.innerHTML = change(jsonResponse['example-usage']).replace('terraform', '').replace('hcl', '').replace(/(<\s*br\s*\/?\s*>)+/g, '<br />').trim();
                     terraform_description.innerHTML = change(get_value_by_part(jsonResponse, 'argument'));
                     resource_description.innerHTML = change(jsonResponse['description']);
-                  
+
                     terraform_example.scrollTop = 0;
                     terraform_example.scrollLeft = 0;
                     terraform_description.scrollTop = 0;
@@ -399,17 +409,17 @@
                     // Remove EMPTY P TAGS
                     const emptyParagraphs = document.querySelectorAll('#terraform-example p:empty');
                     emptyParagraphs.forEach((emptyP) => {
-                      emptyP.remove();
+                        emptyP.remove();
                     });
                     // Select all <p> elements within #terraform-example
                     const pElements = document.querySelectorAll('#terraform-example p');
                     // Iterate through the <p> elements
                     pElements.forEach((pElement) => {
-                      // Check if the first child node of the <p> element is a <br> element
-                      if (pElement.firstChild && pElement.firstChild.tagName === 'BR') {
-                        // Remove the <p> element
-                        pElement.firstChild.remove();
-                      }
+                        // Check if the first child node of the <p> element is a <br> element
+                        if (pElement.firstChild && pElement.firstChild.tagName === 'BR') {
+                            // Remove the <p> element
+                            pElement.firstChild.remove();
+                        }
                     });
 
 
@@ -424,7 +434,7 @@
         function resourceLinkClickHandler(event) {
             if (event.target.classList.contains('resource_link')) {
                 event.preventDefault(); // Prevent default link behavior
-                
+
                 // Get the value attribute from the clicked link
                 const fileValue = event.target.getAttribute('value');
                 active_resource_name = fileValue;
@@ -443,7 +453,7 @@
         document.addEventListener('click', resourceLinkClickHandler);
 
         // Add click event listeners for left and right arrows
-        document.getElementById('left_arrow').addEventListener('click', function(event) {
+        document.getElementById('left_arrow').addEventListener('click', function (event) {
             // Navigate to the previous sibling element
             const prevSibling = active_resource_element.parentNode.previousSibling;
             if (prevSibling) {
@@ -456,7 +466,7 @@
             }
         });
 
-        document.getElementById('right_arrow').addEventListener('click', function(event) {
+        document.getElementById('right_arrow').addEventListener('click', function (event) {
             // Navigate to the next sibling element
             const nextSibling = active_resource_element.parentNode.nextSibling;
             if (nextSibling) {
@@ -470,28 +480,33 @@
         });
 
 
-        document.getElementById('search_simple').addEventListener('click', function(event) {
-            const searchQuery = `${cloud_neat_name} ${active_resource_name}`.replace(/_/g," ");
+        document.getElementById('search_simple').addEventListener('click', function (event) {
+            const searchQuery = `${cloud_neat_name} ${active_resource_name}`.replace(/_/g, " ");
             // Encode the search query for a URL
             const encodedQuery = encodeURIComponent(searchQuery);
             // Construct the Google search URL
             const googleSearchURL = `https://www.google.com/search?q=${encodedQuery}`;
             // Open the search in a new tab
-            window.open(googleSearchURL, '_blank');            
+            window.open(googleSearchURL, '_blank');
         });
 
 
-        document.getElementById('search_advanced').addEventListener('click', function(event) {
-            const searchQuery = `What is the purpose of ${active_resource_name} in ${cloud_neat_name} plus the equivalent service of ${cloud_neat_name} ${active_resource_name} in the other clouds such as ${getOtherClouds(cloud)}?  Generate AI answer.`.replace(/_/g," ");
+        document.getElementById('search_advanced').addEventListener('click', function (event) {
+            const searchQuery = `What is the purpose of ${active_resource_name} in ${cloud_neat_name} plus the equivalent service of ${cloud_neat_name} ${active_resource_name} in the other clouds such as ${getOtherClouds(cloud)}?  Generate AI answer.`.replace(/_/g, " ");
             // Encode the search query for a URL
             const encodedQuery = encodeURIComponent(searchQuery);
             // Construct the Google search URL
             const googleSearchURL = `https://www.google.com/search?q=${encodedQuery}`;
             // Open the search in a new tab
-            window.open(googleSearchURL, '_blank');            
+            window.open(googleSearchURL, '_blank');
         });
 
-        document.getElementById('ai').addEventListener('click', function(event) {
+        document.getElementById('ai_simple').addEventListener('click', function (event) {
+            text_query = `Give me an example of 5 instances/entities ${active_resource_name} in ${cloud_neat_name} that pertains to NBA players.`;
+            copyTextToClipboard(text_query);
+        });
+
+        document.getElementById('ai_advanced').addEventListener('click', function (event) {
             terraform_arguments = document.getElementById("terraform-description").innerText;
             other_clouds = getOtherClouds(cloud);
             text_query = `Dear Cloud Terraform expert. Please look at the terraform below of the resource known as ${active_resource_name}. 1) Tell me what this resource is doing & why it exists based off your own knowledge and the arguments below. (Do not explain every single argument/parameter, it was already done in the prompt) 2) Tell me what other resources & services in ${cloud_neat_name} that the resource below is connected to (explain this part relative quickly, and do not do this for every single argument/parameter). 3) In 4 to 8 sentences, give me an fictional example of this resource being in a workplace ("Wawa Corporate") that's oversaturated with hypothetical fictional values everywhere that are highlighted for learning purposes. Use your imagination to this question very heavy by conjuring a random real-world scenario where someone uses ${active_resource_name}. Every noun has either a imaginary scenario or fictional value for learning to set the scene (Note: Wawa is the convenience store in the mid-Atlantic like New Jersey & Pennsylvania) 4) Please in a code window show me Terraform Configuration using every single argument presented below, with hypothetical fictional values in a code window 5) Write me a script between a stakeholder, and boss, and an employee, using imagination & fiction heavy & mock hypothetical fictional VALUES everywhere in technical specifics. Saturate this to the brim with hypothetical fictional values. 7) What are the names of the equivalent services for the other clouds at ${other_clouds} 8) Does this service have any features & concepts specific to ${cloud_neat_name} that is unique to ${cloud_neat_name} & different than ${other_clouds}?:`;
@@ -502,85 +517,86 @@
 
         });
 
-        document.getElementById('terraform_registry_page').addEventListener('click', function(event) {
+        document.getElementById('terraform_registry_page').addEventListener('click', function (event) {
             terraform_registry_url = `https://registry.terraform.io/providers/hashicorp/${cloud}/latest/docs/resources/${active_resource_name}`;
             window.open(terraform_registry_url, '_blank');
-        }); 
+        });
 
-        document.getElementById('open_chatgpt').addEventListener('click', function(event) {
+        document.getElementById('open_chatgpt').addEventListener('click', function (event) {
             window.open("https://chat.openai.com/", '_blank');
         });
 
 
-    //Make the leaf divs have scrollable features!
-    document.querySelectorAll('div').forEach((div) => {
-        if (div.querySelectorAll('div').length === 0) {
-            // If the div has no child divs (leaf div), add the "scrollable" class
-            div.classList.add('scrollable');
-        }
-    });
+        //Make the leaf divs have scrollable features!
+        document.querySelectorAll('div').forEach((div) => {
+            if (div.querySelectorAll('div').length === 0) {
+                // If the div has no child divs (leaf div), add the "scrollable" class
+                div.classList.add('scrollable');
+            }
+        });
 
 
 
 
 
-    ////////////////////
-    //
-    //  DISPLAY FILES ON LEFT COLUMN
-    //
-    ////////////////////
-    
-    document.addEventListener("DOMContentLoaded", function () {
-        // Get the 'cloud' query parameter from the URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const cloud = urlParams.get("cloud");
-        const markdownSource = `${cloud}\\file_names.js`;
+        ////////////////////
+        //
+        //  DISPLAY FILES ON LEFT COLUMN
+        //
+        ////////////////////
 
-        const fileList = document.getElementById("left-column");
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the 'cloud' query parameter from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const cloud = urlParams.get("cloud");
+            const markdownSource = `${cloud}\\file_names.js`;
 
-        // Create a function to fetch and display the file list
-        function displayFileList() {
-            fileList.innerHTML = ""; // Clear the list
+            const fileList = document.getElementById("left-column");
 
-            // Fetch the list of files
-            fetch(markdownSource)
-                .then((response) => response.json())
-                .then((data) => {
-                    data.forEach((file) => {
-                        if (file !== '.' && file !== '..') {
-                            const parts = file.split('.');
-                            const filenameWithoutExtension = parts[0];
-                            const listItem = document.createElement("li");
-                            const link = document.createElement("a");
-                            link.href = "";
-                            link.classList.add("resource_link");
-                            link.setAttribute("value", filenameWithoutExtension);
-                            link.textContent = filenameWithoutExtension;
-                            listItem.appendChild(link);
-                            fileList.appendChild(listItem);
-                        }
+            // Create a function to fetch and display the file list
+            function displayFileList() {
+                fileList.innerHTML = ""; // Clear the list
+
+                // Fetch the list of files
+                fetch(markdownSource)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        data.forEach((file) => {
+                            if (file !== '.' && file !== '..') {
+                                const parts = file.split('.');
+                                const filenameWithoutExtension = parts[0];
+                                const listItem = document.createElement("li");
+                                const link = document.createElement("a");
+                                link.href = "";
+                                link.classList.add("resource_link");
+                                link.setAttribute("value", filenameWithoutExtension);
+                                link.textContent = filenameWithoutExtension;
+                                listItem.appendChild(link);
+                                fileList.appendChild(listItem);
+                            }
+                        });
+
+                        //initialize
+                        document.querySelector("#left-column li a").click();
+
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching file list:", error);
                     });
 
-                    //initialize
-                    document.querySelector("#left-column li a").click();
+            }
 
-                })
-                .catch((error) => {
-                    console.error("Error fetching file list:", error);
-                });
-
-        }
-
-        // Call the function to initially display the file list
-        displayFileList();
-       
+            // Call the function to initially display the file list
+            displayFileList();
 
 
- 
-    });
+
+
+        });
 
 
 
     </script>
 </body>
+
 </html>
