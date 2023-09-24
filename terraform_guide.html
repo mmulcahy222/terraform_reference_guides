@@ -169,6 +169,7 @@
         }
 
 
+
         /* Style for the Terraform sections */
         #terraform-example,
         #terraform-description {
@@ -181,6 +182,14 @@
             outline-offset: 0px;
         }
 
+        #terraform-example p
+        {
+            display: block;
+            margin-block-start: 0.2em;
+            margin-block-end: 0.2em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+        }
 
 
 
@@ -408,23 +417,30 @@
                     //
                     ////////////////////
                     // Remove EMPTY P TAGS
-                    const emptyParagraphs = document.querySelectorAll('#terraform-example p:empty');
-                    emptyParagraphs.forEach((emptyP) => {
-                        emptyP.remove();
-                    });
+                    // const emptyParagraphs = document.querySelectorAll('#terraform-example p:empty');
+                    // emptyParagraphs.forEach((emptyP) => {
+                    //     emptyP.remove();
+                    // });
+
+
+                    // // Select all <p> elements within #terraform-example
+                    // const pElements = document.querySelectorAll('#terraform-example p');
+                    // // Iterate through the <p> elements
+                    // pElements.forEach((pElement) => {
+                    //     // Check if the first child node of the <p> element is a <br> element
+                    //     if (pElement.firstChild && pElement.firstChild.tagName === 'BR') {
+                    //         // Remove the <p> element
+                    //         pElement.firstChild.remove();
+                    //     }
+                    // });
+
+
                     // Select all <p> elements within #terraform-example
-                    const pElements = document.querySelectorAll('#terraform-example p');
-                    // Iterate through the <p> elements
-                    pElements.forEach((pElement) => {
-                        // Check if the first child node of the <p> element is a <br> element
-                        if (pElement.firstChild && pElement.firstChild.tagName === 'BR') {
-                            // Remove the <p> element
-                            pElement.firstChild.remove();
-                        }
+                    const brElements = document.querySelectorAll('#terraform-example br:nth-child(1)');
+                    brElements.forEach(brElement => {
+                        brElement.parentNode.removeChild(brElement);
+                        console.log("REMOVE");
                     });
-
-
-
 
                 }
             };
