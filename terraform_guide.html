@@ -134,6 +134,28 @@
             overflow: hidden;
         }
 
+        .header-item *
+        {
+            color: #0000a0;
+        }
+
+       
+
+        .header-item .submenus
+        {
+            position: absolute;
+            width: 20vh;
+            transform: translateY(15px);
+        }
+
+        
+
+       .submenu {
+            padding: 10px 8px;
+            margin-bottom: 6px;
+            background-color: #c0c0c0;
+        }
+
 
         div {
             overflow-y: auto;
@@ -254,18 +276,22 @@
         <!-- Within the existing HTML structure -->
         <div id="right-column">
             <div id="header">
-                <div class="header-item" id="active_resource_name_display">Name</div>
                 <div class="header-item" id="left_arrow">&#x2190;</div>
                 <div class="header-item" id="right_arrow">&#x2192;</div>
                 <div class="header-item" id="terraform_registry_page">Terraform Registry Page</div>
                 <div class="header-item" id="search_simple">Google Simple</div>
                 <div class="header-item" id="search_advanced">Google Advanced</div>
-                <div class="header-item" id="prompt_1">Clipboard Prompt 1</div>
-                <div class="header-item" id="prompt_2">Clipboard Prompt 2</div>
-                <div class="header-item" id="prompt_3">Clipboard Prompt 3</div>
+                <div class="header-item" id="prompts">
+                    <div class="submenu-toggle" id="prompts-toggle">Clipboard Prompts &#9660;</div>
+                    <div class="submenus" id="prompts-dropdown">
+                        <div class="submenu" id="prompt_1">Prompt 1</div>
+                        <div class="submenu" id="prompt_2">Prompt 2</div>
+                        <div class="submenu" id="prompt_3">Prompt 3</div>
+                    </div>
+                </div>
+
                 <div class="header-item" id="open_bard">&#x263A; Open Bard &#x263A;</div>
                 <div class="header-item" id="open_chatgpt">&#x263A; Open ChatGPT &#x263A;</div>
-
             </div>
             <div id="resource-description">
 
@@ -389,12 +415,12 @@
                     terraform_example = document.getElementById('terraform-example');
                     terraform_description = document.getElementById('terraform-description');
                     resource_description = document.getElementById('resource-description');
-                    active_resource_name_display = document.getElementById('active_resource_name_display');
+                    // active_resource_name_display = document.getElementById('active_resource_name_display');
 
                     // Update the HTML content based on the JSON response
                     terraform_example.innerHTML = change(jsonResponse['example-usage']).replace('terraform', '').replace('hcl', '').replace(/(<\s*br\s*\/?\s*>)+/g, '<br />').trim();
                     terraform_description.innerHTML = change(get_value_by_part(jsonResponse, 'argument'));
-                    resource_description.innerHTML = change(jsonResponse['description']);
+                    resource_description.innerHTML = active_resource_name + ': '  + change(jsonResponse['description']);
 
                     terraform_example.scrollTop = 0;
                     terraform_example.scrollLeft = 0;
@@ -621,6 +647,47 @@
 
 
         });
+
+
+
+
+
+        ////////////////////
+        //
+        //  SUBMENU
+        //
+        ////////////////////
+        // Get all submenu toggle elements
+        const submenuToggles = document.querySelectorAll('.submenu-toggle');
+
+        // Add click event listeners to all submenu toggle elements
+        submenuToggles.forEach((toggle) => {
+            toggle.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent the click event from propagating to the document
+
+                // Toggle the display of the submenu underneath the corresponding menu item
+                const submenu = toggle.nextElementSibling; // Get the next sibling (the submenu)
+                if (submenu.style.display === 'none' || submenu.style.display === '') {
+                    submenu.style.display = 'block';
+                } else {
+                    submenu.style.display = 'none';
+                }
+            });
+        });
+
+        // Add a click event listener to the document to close all submenus when clicking anywhere outside
+        document.addEventListener('click', () => {
+            // Get all submenus
+            const submenus = document.querySelectorAll('.submenus');
+
+            // Close all submenus
+            submenus.forEach((submenu) => {
+                submenu.style.display = 'none';
+            });
+        });
+
+
+
 
 
 
