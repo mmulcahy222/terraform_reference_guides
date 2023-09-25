@@ -12,3 +12,5 @@ There are options to use this for one-click google searches or prompts for AI. I
 [Amazon AWS Terraform Reference](https://mmulcahy222.github.io/terraform_reference_guides/terraform_guide.html?cloud=aws)
 [Google Cloud Terraform Reference](https://mmulcahy222.github.io/terraform_reference_guides/terraform_guide.html?cloud=google)
 [IBM Cloud Terraform Reference](https://mmulcahy222.github.io/terraform_reference_guides/terraform_guide.html?cloud=google)
+
+![](images/terraform_guide_2023.png)
