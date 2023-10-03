@@ -278,6 +278,15 @@
             <div id="header">
                 <div class="header-item" id="left_arrow">&#x2190;</div>
                 <div class="header-item" id="right_arrow">&#x2192;</div>
+                <div class="header-item" id="clouds">
+                    <div class="submenu-toggle" id="clouds-toggle">Clouds &#9660;</div>
+                    <div class="submenus" id="clouds-dropdown">
+                        <div class="submenu" id="cloud_aws">Amazon AWS</div>
+                        <div class="submenu" id="cloud_azure">Microsoft Azure</div>
+                        <div class="submenu" id="cloud_google">Google Cloud</div>
+                        <div class="submenu" id="cloud_ibm">IBM Cloud</div>
+                    </div>
+                </div>
                 <div class="header-item" id="terraform_registry_page">Terraform Registry Page</div>
                 <div class="header-item" id="search_simple">Google Simple</div>
                 <div class="header-item" id="search_advanced">Google Advanced</div>
@@ -565,6 +574,30 @@
             full_query = text_query + "\n\n" + terraform_arguments;
             copyTextToClipboard(full_query);
 
+        });
+
+        function updateCloudParameter(cloudValue) {
+          var currentURL = new URL(window.location.href);
+          var params = new URLSearchParams(currentURL.search);
+          params.set("cloud", cloudValue);
+          currentURL.search = params.toString();
+          window.location.href = currentURL.href;
+        }
+
+        
+
+
+        document.getElementById('cloud_aws').addEventListener('click', function (event) {
+            updateCloudParameter("aws");
+        });
+        document.getElementById('cloud_azure').addEventListener('click', function (event) {
+            updateCloudParameter("azurerm");
+        });
+        document.getElementById('cloud_google').addEventListener('click', function (event) {
+            updateCloudParameter("google");
+        });
+        document.getElementById('cloud_ibm').addEventListener('click', function (event) {
+            updateCloudParameter("IBM-cloud");
         });
 
         document.getElementById('terraform_registry_page').addEventListener('click', function (event) {
