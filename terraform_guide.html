@@ -297,6 +297,8 @@
                         <div class="submenu" id="prompt_2">Prompt 2</div>
                         <div class="submenu" id="prompt_3">Prompt 3</div>
                         <div class="submenu" id="prompt_4">Prompt 4</div>
+                        <div class="submenu" id="prompt_5">Prompt 5</div>
+
                     </div>
                 </div>
 
@@ -574,7 +576,15 @@
 
         });
 
-        document.getElementById('prompt_4').addEventListener('click', function (event) {
+         document.getElementById('prompt_4').addEventListener('click', function (event) {
+            terraform_arguments = document.getElementById("terraform-description").innerText;
+            other_clouds = getOtherClouds(cloud);
+            full_query = `Please in a code window show me Terraform Configuration using every single argument presented below, with hypothetical fictional values in a code window:\n\n${terraform_arguments}`;
+            copyTextToClipboard(full_query);
+
+        });
+
+        document.getElementById('prompt_5').addEventListener('click', function (event) {
             terraform_arguments = document.getElementById("terraform-description").innerText;
             other_clouds = getOtherClouds(cloud);
             text_query = `Dear Cloud Terraform expert. Please look at the terraform below of the resource known as ${active_resource_name}. 1) Tell me what this resource is doing & why it exists based off your own knowledge and the arguments below. (Do not explain every single argument/parameter, it was already done in the prompt) 2) Tell me what other resources & services in ${cloud_neat_name} that the resource below is connected to (explain this part relative quickly, and do not do this for every single argument/parameter). 3) In 4 to 8 sentences, give me an fictional example of this resource being in a workplace ("Wawa Corporate") that's oversaturated with hypothetical fictional values everywhere that are highlighted for learning purposes. Use your imagination to this question very heavy by conjuring a random real-world scenario where someone uses ${active_resource_name}. Every noun has either a imaginary scenario or fictional value for learning to set the scene (Note: Wawa is the convenience store in the mid-Atlantic like New Jersey & Pennsylvania) 4) Please in a code window show me Terraform Configuration using every single argument presented below, with hypothetical fictional values in a code window 5) Write me a script between a stakeholder, and boss, and an employee, using imagination & fiction heavy & mock hypothetical fictional VALUES everywhere in technical specifics. Saturate this to the brim with hypothetical fictional values. 7) What are the names of the equivalent services for the other clouds at ${other_clouds} 8) Does this service have any features & concepts specific to ${cloud_neat_name} that is unique to ${cloud_neat_name} & different than ${other_clouds}?:`;
